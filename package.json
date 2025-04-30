@@ -2,7 +2,7 @@
   "name": "packmc",
   "version": "0.0.0",
   "description": "Transpile JS/TS files to Minecraft .mcfunction files",
-  "main": "dist/lib/transpile.js",
+  "main": "dist/lib/index.js",
   "bin": {
     "packmc": "dist/bin/cli.js"
   },
