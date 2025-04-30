@@ -13,5 +13,10 @@ const getArg = (key: string, defaultVal: string) => {
 
 const inputPath = getArg("input", "src/pack");
 const outputPath = getArg("output", "dist");
+const skipClean = args.includes("--no-clean");
 
-buildProject(inputPath, outputPath);
+buildProject({
+  inputPath,
+  outputPath,
+  skipClean,
+});

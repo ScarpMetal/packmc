@@ -48,7 +48,15 @@ function copyNonJsTsFiles(inputPath: string, outputPath: string) {
   }
 }
 
-export function buildProject(inputPath: string, outputPath: string) {
+interface BuildOptions {
+  inputPath: string;
+  outputPath: string;
+  skipClean?: boolean;
+}
+
+export function buildProject(options: BuildOptions) {
+  const { inputPath, outputPath, skipClean = false } = options;
+
   if (!fs.existsSync(inputPath)) {
     console.error(
       `❌ [PackMC Error] Input path "${inputPath}" does not exist.`
@@ -56,8 +64,10 @@ export function buildProject(inputPath: string, outputPath: string) {
     process.exit(1);
   }
 
-  // Clear the output directory before starting
-  clearOutputDirectory(outputPath);
+  // Clear the output directory before starting unless skipClean is true
+  if (!skipClean) {
+    clearOutputDirectory(outputPath);
+  }
 
   // Copy non-JS/TS files first
   copyNonJsTsFiles(inputPath, outputPath);
