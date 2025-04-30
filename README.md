@@ -71,7 +71,3 @@ For development, can build the example pack:
 ```bash
 npm run example
 ```
-
-## License
-
-[MIT](LICENSE)
