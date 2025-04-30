@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc",
     "preexample": "npm run build",
-    "example": "node dist/bin/cli.js --input ./example/pack --output ./dist/pack",
+    "example": "node dist/bin/cli.js",
     "dev": "tsc --watch",
     "lint": "eslint --fix .",
     "format": "prettier --write ."
