@@ -1,0 +1,27 @@
+{
+  "name": "pack-mc",
+  "version": "0.0.0",
+  "description": "Transpile JS/TS files to Minecraft .mcfunction files",
+  "main": "dist/lib/transpile.js",
+  "bin": {
+    "pack-mc": "dist/bin/cli.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "preexample": "npm run build",
+    "example": "node dist/bin/cli.js --input ./example/pack --output ./dist/pack",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.23.3",
+    "@babel/traverse": "^7.23.3",
+    "@babel/types": "^7.23.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.x",
+    "@types/babel__traverse": "^7.x",
+    "@types/babel__parser": "^7.x",
+    "typescript": "^5.x"
+  }
+}
