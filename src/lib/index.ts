@@ -1,7 +1,10 @@
 import fs from 'fs'
 import path from 'path'
-import { getAllJsTsFiles } from './fs-utils.js'
-import { clearOutputDirectory, copyNonJsTsFiles } from './transpile/fs-utils.js'
+import {
+  clearOutputDirectory,
+  copyNonJsTsFiles,
+  getAllJsTsFiles,
+} from './transpile/fs-utils.js'
 import { BuildOptions, validateBuildOptions } from './transpile/build-config.js'
 import { transpileFile } from './transpile/transpiler.js'
 
