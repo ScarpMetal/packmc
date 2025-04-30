@@ -7,6 +7,22 @@ const traverse = _traverse.default;
 
 const visitedCache = new Set();
 
+function clearOutputDirectory(outputPath: string) {
+  if (fs.existsSync(outputPath)) {
+    // Remove all files and directories in the output path
+    const files = fs.readdirSync(outputPath);
+    for (const file of files) {
+      const filePath = path.join(outputPath, file);
+      if (fs.lstatSync(filePath).isDirectory()) {
+        fs.rmSync(filePath, { recursive: true, force: true });
+      } else {
+        fs.unlinkSync(filePath);
+      }
+    }
+    console.log(`🧹 Cleared output directory: ${outputPath}`);
+  }
+}
+
 function copyNonJsTsFiles(inputPath: string, outputPath: string) {
   const files = fs.readdirSync(inputPath, { withFileTypes: true });
 
@@ -16,10 +32,14 @@ function copyNonJsTsFiles(inputPath: string, outputPath: string) {
     const destPath = path.join(outputPath, relativePath);
 
     if (file.isDirectory()) {
+      // Create the directory in the output path
       fs.mkdirSync(destPath, { recursive: true });
-      copyNonJsTsFiles(sourcePath, outputPath);
+      // Recursively process the directory
+      copyNonJsTsFiles(sourcePath, path.join(outputPath, file.name));
     } else if (!file.name.endsWith(".js") && !file.name.endsWith(".ts")) {
+      // Ensure the parent directory exists
       fs.mkdirSync(path.dirname(destPath), { recursive: true });
+      // Copy the file
       fs.copyFileSync(sourcePath, destPath);
       console.log(
         `📄 ${relativePath} → ${path.relative(process.cwd(), destPath)}`
@@ -35,6 +55,9 @@ export function buildProject(inputPath: string, outputPath: string) {
     );
     process.exit(1);
   }
+
+  // Clear the output directory before starting
+  clearOutputDirectory(outputPath);
 
   // Copy non-JS/TS files first
   copyNonJsTsFiles(inputPath, outputPath);
